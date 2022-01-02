@@ -19,6 +19,10 @@ export abstract class EntityRepository<T extends Document> {
       .exec();
   }
 
+  async getUserByEmail (entityFilterQuery: FilterQuery<T>): Promise<T | null> {
+    return this.entityModel.findOne(entityFilterQuery)
+  } 
+
   async find(entityFilterQuery: FilterQuery<T>): Promise<T[] | null> {
     return this.entityModel.find(entityFilterQuery);
   }
