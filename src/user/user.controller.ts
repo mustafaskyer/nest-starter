@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 @Controller('users')
 @UseGuards(AuthGuard())
 export class UserController {
+  private logger = new Logger('UsersController')
   constructor(private readonly userService: UserService) {}
   @Get(':id')
   async getUserId(@Param('id') id: string): Promise<User> {
@@ -16,6 +17,7 @@ export class UserController {
 
   @Get()
   async getUsers(): Promise<User[]> {
+    this.logger.log('User is getting users')
     return this.userService.getUsers();
   }
 
