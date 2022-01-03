@@ -4,16 +4,23 @@ import { Document } from 'mongoose';
 // export type UserDocument = User & Document;
 @Schema()
 export class User extends Document {
-  @Prop()
+  @Prop({ required: true, index: true })
   name: string;
 
+
   @Prop({ unique: true })
+  username: string;
+
+  @Prop({ unique: true, required: true })
   email: string;
 
-  @Prop()
+  @Prop({ required: true })
+  password: string;
+
+  @Prop({ required: false, default: 0 })
   age: number;
 
-  @Prop([String])
+  @Prop({ type: [String], required: false })
   favorites: string[];
 }
 
